@@ -7,6 +7,11 @@
     "properties": {
       "script-ref": "properties.java",
       "description": "Dump table of System properties"
+    },
+    ,
+    "env": {
+      "script-ref": "env.java",
+      "description": "Dump table of Environment Variables"
     }
   }
 }
