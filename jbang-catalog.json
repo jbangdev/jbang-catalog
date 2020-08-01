@@ -2,7 +2,7 @@
   "aliases": {
     "hello": {
       "script-ref":   "hello.java",
-      "description":  "Script that says hello back"
+      "description":  "Script that says hello back for each argument"
     },
     "properties": {
       "script-ref": "properties.java",
