@@ -11,6 +11,10 @@
     "env": {
       "script-ref": "env.java",
       "description": "Dump table of Environment Variables"
+    },
+    "gavsearch": {
+      "script-ref": "gavsearch.java",
+      "description": "Search search.maven.org for maven artifacts."
     }
   }
 }
