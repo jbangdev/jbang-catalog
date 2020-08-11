@@ -33,7 +33,7 @@ import static org.fusesource.jansi.Ansi.ansi;
         description = "mvnsearch made with jbang")
 public class gavsearch implements Callable<Integer> {
 
-    @Parameters(index = "0", description = "Query string to use when searching search.maven.org", defaultValue = "picocli")
+    @Parameters(index = "0", description = "Query string to use when searching search.maven.org")
     private String query;
 
     public static void main(String... args) {
