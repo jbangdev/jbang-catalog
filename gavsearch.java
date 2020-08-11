@@ -29,15 +29,15 @@ import java.util.concurrent.Callable;
 import static java.lang.System.out;
 import static org.fusesource.jansi.Ansi.ansi;
 
-@Command(name = "mvnsearch", mixinStandardHelpOptions = true, version = "mvnsearch 0.1",
+@Command(name = "gavsearch", mixinStandardHelpOptions = true, version = "gavsearch 0.1",
         description = "mvnsearch made with jbang")
-public class mvnsearch implements Callable<Integer> {
+public class gavsearch implements Callable<Integer> {
 
     @Parameters(index = "0", description = "Query string to use when searching search.maven.org", defaultValue = "picocli")
     private String query;
 
     public static void main(String... args) {
-        int exitCode = new CommandLine(new mvnsearch()).execute(args);
+        int exitCode = new CommandLine(new gavsearch()).execute(args);
         System.exit(exitCode);
     }
 
