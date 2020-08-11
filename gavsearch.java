@@ -44,10 +44,10 @@ public class gavsearch implements Callable<Integer> {
     @Override
     public Integer call() throws Exception { // your business logic goes here...
         AnsiConsole.systemInstall();
-        ConsolePrompt prompt = new ConsolePrompt();
 
         var client = ClientBuilder.newClient();
         try(var thing = client.target("https://search.maven.org/solrsearch/select?rows=100&q=" + URLEncoder.encode(query, "UTF-8")).request().get()) {
+            ConsolePrompt prompt = new ConsolePrompt();
             var result = thing.readEntity(MvnSearchResult.class);
             if(result.response.docs.isEmpty()) {
                 System.err.println("no results");
@@ -70,11 +70,10 @@ public class gavsearch implements Callable<Integer> {
                 String selid = ((ListResult)response.get("gav")).getSelectedId();
                 Doc selected = gavmap.get(selid);
 
-                out.println(ansi().render("@|bold gradle:|@ ") + selected.gradle());
+                out.println(ansi().render("@|bold gradle:|@\n") + selected.gradle());
                 out.println(ansi().render("@|bold maven:|@ \n") + selected.maven());
-                out.println(ansi().render("@|italic ok?|@"));
 
-                builder = new ConsolePrompt().getPromptBuilder();
+                /*builder = new ConsolePrompt().getPromptBuilder();
                 builder.createListPrompt()
                         .name("choice")
                         .message("Action")
@@ -87,6 +86,8 @@ public class gavsearch implements Callable<Integer> {
                 response = prompt.prompt(builder.build());
 
                 out.println(response);
+
+                 */
             }
         }
 
