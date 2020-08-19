@@ -3,7 +3,7 @@
 //DEPS info.picocli:picocli:4.2.0
 //DEPS org.jboss.resteasy:resteasy-client:4.5.6.Final
 //DEPS org.jboss.resteasy:resteasy-jackson2-provider:4.5.6.Final
-//DEPS de.codeshelf.consoleui:consoleui:0.0.11
+//DEPS de.codeshelf.consoleui:consoleui:0.0.13
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.codeshelf.consoleui.prompt.ConsolePrompt;
@@ -56,7 +56,8 @@ public class gavsearch implements Callable<Integer> {
 
                 var list = builder.createListPrompt()
                         .name("gav")
-                        .message("coordinates");
+                        .message("coordinates")
+                        .relativePageSize(50);
                 final Map<String, Doc> gavmap = new HashMap<>();
                 result.response.docs.forEach(gav -> {
                     gavmap.put(gav.id, gav);
