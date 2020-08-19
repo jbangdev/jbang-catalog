@@ -94,7 +94,8 @@ public class gavsearch implements Callable<Integer> {
 
                 var list = builder.createListPrompt()
                         .name("gav")
-                        .message("coordinates");
+                        .message("coordinates")
+                        .relativePageSize(50);
                 final Map<String, Doc> gavmap = new HashMap<>();
                 result.response.docs.stream().filter(this::filterMatch).forEach(gav -> {
                     gavmap.put(gav.id, gav);
