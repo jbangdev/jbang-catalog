@@ -18,6 +18,9 @@ import picocli.CommandLine.Parameters;
 import javax.naming.directory.SearchResult;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -81,35 +84,62 @@ public class gavsearch implements Callable<Integer> {
                 String selid = ((ListResult)response.get("gav")).getSelectedId();
                 Doc selected = gavmap.get(selid);
 
+                builder = new ConsolePrompt().getPromptBuilder();
+                var listprompt = builder.createListPrompt()
+                        .name("choice")
+                        .message("Action");
+
+                Map<String, String> actions = new HashMap<>();
+
                 formats.forEach(s -> {
                     var f = formatMap.get(s);
                     if(f!=null) {
+                        String txt  = f.apply(selected);
                         out.println(ansi().render("@|bold " + s + ":|@\n") +
-                                f.apply(selected));
+                                txt);
+                        listprompt.newItem(s).text("Copy " + s + " to Clipboard").add();
+                        actions.put(s, txt);
                     } else {
                         System.err.println("Unknown format: " + s);
                     }
                 });
 
-                /*builder = new ConsolePrompt().getPromptBuilder();
-                builder.createListPrompt()
-                        .name("choice")
-                        .message("Action")
-                        .newItem().name("copygradle").text("Copy Gradle to Clipboard").add()
-                        .newItem("copymaven").text("Copy Maven to Clipboard").add()
-                        .newItem("versions").text("Search older versions").add()
-                        .newItem("quit").text("Quit").add()
-                        .addPrompt();
-
+                listprompt.newItem("versions").text("Search older versions").add()
+                .newItem("quit").text("Quit").add()
+                .addPrompt();
                 response = prompt.prompt(builder.build());
 
-                out.println(response);
+                String choice = ((ListResult)response.get("choice")).getSelectedId();
+                String res = actions.get(choice);
+                if(res!=null) {
+                    copyClipboard(res);
+                } else if ("versions".equals(choice)) {
+                    try(var versions = client.target("https://search.maven.org/solrsearch/select?rows=100&q=g:"
+                            + selected.g + "+AND+a:" + selected.a + "&core=gav").request().get()) {
 
-                 */
+                        var vs = versions.readEntity(MvnSearchResult.class);
+                        if(vs.response.docs.isEmpty()) {
+                            System.err.println("no results");
+                        } else {
+                            vs.response.docs.forEach(x -> {
+                                System.out.println(x.v);
+                            });
+                        }
+                    }
+
+                }
+
+
             }
         }
 
         return 0;
+    }
+
+    void copyClipboard(String str) {
+        StringSelection stringSelection = new StringSelection(str);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -137,6 +167,7 @@ public class gavsearch implements Callable<Integer> {
         public String id;
         public String g;
         public String a;
+        public String v;
         public String latestVersion;
         public String p;
         public Date timestamp;
