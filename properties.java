@@ -4,6 +4,7 @@
 //DEPS org.jline:jline:3.16.0
 
 import de.vandermeer.asciitable.*;
+import de.vandermeer.asciithemes.a7.A7_Grids;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
@@ -37,6 +38,7 @@ class properties implements Callable<Integer> {
         int[] maxkey = { 0 };
 
         AsciiTable at = new AsciiTable();
+        at.getContext().setGrid(A7_Grids.minusBarPlusEquals());
 
         at.addRule();
         at.addRow("Key", "Value");
