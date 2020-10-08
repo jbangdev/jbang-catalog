@@ -1,8 +1,8 @@
 {
   "aliases": {
     "hello": {
-      "script-ref":   "hello.java",
-      "description":  "Script that says hello back for each argument"
+      "script-ref": "hello.java",
+      "description": "Script that says hello back for each argument"
     },
     "properties": {
       "script-ref": "properties.java",
@@ -15,6 +15,10 @@
     "gavsearch": {
       "script-ref": "gavsearch.java",
       "description": "Search search.maven.org for maven artifacts."
+    },
+    "git": {
+      "script-ref": "jgit.java",
+      "description": "Git command line tool implemented with jgit. Lets you do basic git features without installing git!"
     }
   }
 }
