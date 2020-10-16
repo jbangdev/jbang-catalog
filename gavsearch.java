@@ -59,6 +59,7 @@ public class gavsearch implements Callable<Integer> {
         formatMap.put("jbang", Doc::jbang);
 
 
+        System.out.println("Searching for `" + query + "` on search.maven.org...");
         var client = ClientBuilder.newClient();
         try(var thing = client.target("https://search.maven.org/solrsearch/select?rows=100&q=" + URLEncoder.encode(query, "UTF-8")).request().get()) {
             ConsolePrompt prompt = new ConsolePrompt();
