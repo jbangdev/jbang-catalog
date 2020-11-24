@@ -1,4 +1,5 @@
 {
+  "catalogs": {},
   "aliases": {
     "hello": {
       "script-ref": "hello.java",
@@ -19,6 +20,15 @@
     "git": {
       "script-ref": "jgit.java",
       "description": "Git command line tool implemented with jgit. Lets you do basic git features without installing git!"
+    },
+    "bouncinglogo": {
+      "script-ref": "bouncinglogo.java",
+      "arguments": [
+        "-f",
+        ".",
+        "jfx",
+        "bouncinglogo.java"
+      ]
     }
   }
 }
