@@ -44,6 +44,24 @@ public class gavsearch implements Callable<Integer> {
     @CommandLine.Option(names={ "--formats", " -f" }, split =",", defaultValue="maven,gradle,jbang")
     private List<String> formats;
 
+    @CommandLine.ArgGroup(exclusive = true)
+    private PrintFormat printFormat;
+
+    private static class PrintFormat {
+        @CommandLine.Option(names = "--maven", description = "Print matches in Maven format and exit.")
+        private boolean maven;
+
+        @CommandLine.Option(names = "--gradle", description = "Print matches in Gradle format and exit.")
+        private boolean gradle;
+
+        @CommandLine.Option(names = "--jbang", description = "Print matches in jbang format and exit.")
+        private boolean jbang;
+
+        String name() {
+            return maven ? "maven" : gradle ? "gradle" : "jbang";
+        }
+    }
+
     public static void main(String... args) {
         int exitCode = new CommandLine(new gavsearch()).execute(args);
         System.exit(exitCode);
@@ -66,6 +84,10 @@ public class gavsearch implements Callable<Integer> {
             var result = thing.readEntity(MvnSearchResult.class);
             if(result.response.docs.isEmpty()) {
                 System.err.println("no results");
+            } else if (printFormat != null) {
+                var formatFunction = formatMap.get(printFormat.name());
+                Consumer<Doc> printer = gav -> out.println(formatFunction.apply(gav));
+                result.response.docs.forEach(printer::accept);
             } else {
                 var builder = prompt.getPromptBuilder();
 
