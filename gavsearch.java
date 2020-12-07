@@ -23,8 +23,10 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -44,6 +46,14 @@ public class gavsearch implements Callable<Integer> {
     @CommandLine.Option(names={ "--formats", "-f" }, split =",", defaultValue="maven,gradle,jbang")
     private List<String> formats;
 
+    @CommandLine.Option(names={ "-q", "--quiet"},
+                        defaultValue = "false",
+                        description = "Quiet mode - no questions asked, just print in the format specified.")
+    private boolean quiet;
+
+    @Parameters(index = "1..N", description = "If specified either Group, Artifact or version must contain one of the filters")
+    private List<String> filters = new ArrayList<String>();
+
     public static void main(String... args) {
         int exitCode = new CommandLine(new gavsearch()).execute(args);
         System.exit(exitCode);
@@ -53,7 +63,7 @@ public class gavsearch implements Callable<Integer> {
     public Integer call() throws Exception { // your business logic goes here...
         AnsiConsole.systemInstall();
 
-        Map<String, Function<Doc, String>> formatMap = new HashMap<>();
+        Map<String, Function<Doc, String>> formatMap = new LinkedHashMap<>();
         formatMap.put("gradle", Doc::gradle);
         formatMap.put("maven", Doc::maven);
         formatMap.put("jbang", Doc::jbang);
@@ -64,8 +74,20 @@ public class gavsearch implements Callable<Integer> {
         try(var thing = client.target("https://search.maven.org/solrsearch/select?rows=100&q=" + URLEncoder.encode(query, "UTF-8")).request().get()) {
             ConsolePrompt prompt = new ConsolePrompt();
             var result = thing.readEntity(MvnSearchResult.class);
+
             if(result.response.docs.isEmpty()) {
                 System.err.println("no results");
+            } else if (quiet) {
+                    result.response.docs.stream().filter(x -> {
+                        return filterMatch(x);
+                    }).forEach(x -> {
+                        formatMap.forEach((k,v) -> {
+                            Consumer<Doc> printer = gav -> out.println(v.apply(gav));
+                            printer.accept(x);
+                        }
+                        );
+                        out.println();
+                    });
             } else {
                 var builder = prompt.getPromptBuilder();
 
@@ -73,11 +95,15 @@ public class gavsearch implements Callable<Integer> {
                         .name("gav")
                         .message("coordinates");
                 final Map<String, Doc> gavmap = new HashMap<>();
-                result.response.docs.forEach(gav -> {
+                result.response.docs.stream().filter(this::filterMatch).forEach(gav -> {
                     gavmap.put(gav.id, gav);
                     list.newItem(gav.id).text(gav.gradle()).add();
                 });
 
+                if(gavmap.isEmpty()) {
+                    System.err.println(result.response.docs.size() + " found on search.maven.org but noone matched the specified filters.");
+                    System.exit(1);
+                }
                 list.addPrompt();
 
                 Map<String, ? extends PromtResultItemIF> response = prompt.prompt(builder.build());
@@ -135,6 +161,19 @@ public class gavsearch implements Callable<Integer> {
         }
 
         return 0;
+    }
+
+    public boolean filterMatch(gavsearch.Doc x) {
+        if(filters.isEmpty()) return true;
+
+        int matches = 0;
+        for (String string : filters) {
+            if (x.g.contains(string)) { matches++; continue; }
+            if (x.a!=null && x.a.contains(string)) { matches++; continue; }            ;
+            if (x.v!=null && x.v.contains(string)) { matches++; continue; };
+        }
+        
+        return filters.size()==matches;
     }
 
     void copyClipboard(String str) {
