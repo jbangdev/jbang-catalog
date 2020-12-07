@@ -75,14 +75,15 @@ public class gavsearch implements Callable<Integer> {
             ConsolePrompt prompt = new ConsolePrompt();
             var result = thing.readEntity(MvnSearchResult.class);
 
+            System.out.println(formats);
             if(result.response.docs.isEmpty()) {
                 System.err.println("no results");
             } else if (quiet) {
                     result.response.docs.stream().filter(x -> {
                         return filterMatch(x);
                     }).forEach(x -> {
-                        formatMap.forEach((k,v) -> {
-                            Consumer<Doc> printer = gav -> out.println(v.apply(gav));
+                        formats.forEach(f -> {
+                            Consumer<Doc> printer = gav -> out.println(formatMap.get(f).apply(gav));
                             printer.accept(x);
                         }
                         );
