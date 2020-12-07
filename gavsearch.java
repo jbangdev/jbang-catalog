@@ -41,7 +41,7 @@ public class gavsearch implements Callable<Integer> {
     @Parameters(index = "0", description = "Query string to use when searching search.maven.org")
     private String query;
 
-    @CommandLine.Option(names={ "--formats", " -f" }, split =",", defaultValue="maven,gradle,jbang")
+    @CommandLine.Option(names={ "--formats", "-f" }, split =",", defaultValue="maven,gradle,jbang")
     private List<String> formats;
 
     public static void main(String... args) {

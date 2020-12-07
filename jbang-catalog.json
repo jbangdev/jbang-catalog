@@ -22,13 +22,7 @@
       "description": "Git command line tool implemented with jgit. Lets you do basic git features without installing git!"
     },
     "bouncinglogo": {
-      "script-ref": "bouncinglogo.java",
-      "arguments": [
-        "-f",
-        ".",
-        "jfx",
-        "bouncinglogo.java"
-      ]
+      "script-ref": "bouncinglogo.java"
     }
   }
 }
