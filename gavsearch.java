@@ -23,8 +23,10 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -41,26 +43,16 @@ public class gavsearch implements Callable<Integer> {
     @Parameters(index = "0", description = "Query string to use when searching search.maven.org")
     private String query;
 
-    @CommandLine.Option(names={ "--formats", " -f" }, split =",", defaultValue="maven,gradle,jbang")
+    @Parameters(index = "1..n", description = "Strings that should be part of either Group, Artifact or Version")
+    private List<String> filters = new ArrayList<>();
+
+    @CommandLine.Option(names={ "--formats", "-f" }, split =",", defaultValue="maven,gradle,jbang")
     private List<String> formats;
 
-    @CommandLine.ArgGroup(exclusive = true)
-    private PrintFormat printFormat;
-
-    private static class PrintFormat {
-        @CommandLine.Option(names = "--maven", description = "Print matches in Maven format and exit.")
-        private boolean maven;
-
-        @CommandLine.Option(names = "--gradle", description = "Print matches in Gradle format and exit.")
-        private boolean gradle;
-
-        @CommandLine.Option(names = "--jbang", description = "Print matches in jbang format and exit.")
-        private boolean jbang;
-
-        String name() {
-            return maven ? "maven" : gradle ? "gradle" : "jbang";
-        }
-    }
+    @CommandLine.Option(names={ "-q", "--quiet"},
+                        defaultValue = "false",
+                        description = "Quiet mode - no questions asked, just print in the format specified.")
+    private boolean quiet;
 
     public static void main(String... args) {
         int exitCode = new CommandLine(new gavsearch()).execute(args);
@@ -71,7 +63,7 @@ public class gavsearch implements Callable<Integer> {
     public Integer call() throws Exception { // your business logic goes here...
         AnsiConsole.systemInstall();
 
-        Map<String, Function<Doc, String>> formatMap = new HashMap<>();
+        Map<String, Function<Doc, String>> formatMap = new LinkedHashMap<>();
         formatMap.put("gradle", Doc::gradle);
         formatMap.put("maven", Doc::maven);
         formatMap.put("jbang", Doc::jbang);
@@ -82,12 +74,20 @@ public class gavsearch implements Callable<Integer> {
         try(var thing = client.target("https://search.maven.org/solrsearch/select?rows=100&q=" + URLEncoder.encode(query, "UTF-8")).request().get()) {
             ConsolePrompt prompt = new ConsolePrompt();
             var result = thing.readEntity(MvnSearchResult.class);
+
             if(result.response.docs.isEmpty()) {
                 System.err.println("no results");
-            } else if (printFormat != null) {
-                var formatFunction = formatMap.get(printFormat.name());
-                Consumer<Doc> printer = gav -> out.println(formatFunction.apply(gav));
-                result.response.docs.forEach(printer::accept);
+            } else if (quiet) {
+                    result.response.docs.stream().filter(x -> {
+                        return filterMatch(x);
+                    }).forEach(x -> {
+                        formatMap.forEach((k,v) -> {
+                            Consumer<Doc> printer = gav -> out.println(v.apply(gav));
+                            printer.accept(x);
+                        }
+                        );
+                        out.println();
+                    });
             } else {
                 var builder = prompt.getPromptBuilder();
 
@@ -95,11 +95,15 @@ public class gavsearch implements Callable<Integer> {
                         .name("gav")
                         .message("coordinates");
                 final Map<String, Doc> gavmap = new HashMap<>();
-                result.response.docs.forEach(gav -> {
+                result.response.docs.stream().filter(this::filterMatch).forEach(gav -> {
                     gavmap.put(gav.id, gav);
                     list.newItem(gav.id).text(gav.gradle()).add();
                 });
 
+                if(gavmap.isEmpty()) {
+                    System.err.println(result.response.docs.size() + " found on search.maven.org but noone matched the specified filters.");
+                    System.exit(1);
+                }
                 list.addPrompt();
 
                 Map<String, ? extends PromtResultItemIF> response = prompt.prompt(builder.build());
@@ -157,6 +161,18 @@ public class gavsearch implements Callable<Integer> {
         }
 
         return 0;
+    }
+
+    public boolean filterMatch(gavsearch.Doc x) {
+        if(filters.isEmpty()) return true;
+
+        for (String string : filters) {
+            if (x.g.contains(string)) return true;
+            if (x.a!=null && x.a.contains(string)) return true;
+            if (x.v!=null && x.v.contains(string)) return true;
+        }
+        
+        return false;
     }
 
     void copyClipboard(String str) {
