@@ -23,6 +23,13 @@
     },
     "bouncinglogo": {
       "script-ref": "bouncinglogo.java"
+    },
+    "h2": {
+      "script-ref": "com.h2database:h2:1.4.200",
+      "arguments": [
+        "-webAllowOthers",
+        "-tcpAllowOthers"
+      ]
     }
   }
 }
