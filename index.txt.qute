@@ -1,0 +1,41 @@
+## jbang catalog
+
+{catalog.description}
+
+This is a catalog to use with [jbang](https://jbang.dev).
+
+## How to run
+
+Below are portable instructions to install/run with this catalog, if you want to download `jbang` with your preferred package manger see [jbang website](https://jbang.dev/download) for options.
+
+### Run without jbang installed
+
+Linux, OS X and Windows with bash compatible shell (i.e. cygwin, WSL,etc.)
+
+```
+curl -Ls https://sh.jbang.dev | bash -s - <alias>{location}
+```
+
+Windows Powershell:
+
+```
+curl -Ls https://sh.jbang.dev | bash -s - <alias>{location}
+```
+
+### Run with jbang installed 
+
+```
+jbang <alias>{location}
+```
+
+{#each catalog.aliases}
+
+### {it.key}
+
+{it.value.description}
+
+ ```
+ jbang {it.key}{location}
+ ```
+{/each}
+

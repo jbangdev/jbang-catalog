@@ -30,6 +30,10 @@
         "-webAllowOthers",
         "-tcpAllowOthers"
       ]
+    },
+    "catalog2readme": {
+      "script-ref": "catalog2readme.java"
     }
-  }
+  },
+  "templates": {}
 }
