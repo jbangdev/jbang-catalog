@@ -1,0 +1,47 @@
+///usr/bin/env jbang "$0" "$@" ; exit $?
+///usr/bin/env jbang "$0" "$@" ; exit $?
+//DEPS info.picocli:picocli:4.5.0
+//DEPS org.kohsuke:github-api:1.116
+
+import java.util.Optional;
+import java.util.concurrent.Callable;
+
+import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GitHub;
+import org.kohsuke.github.PagedSearchIterable;
+
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+
+@Command(name = "{baseName}", mixinStandardHelpOptions = true, version = "{baseName} 0.1",
+        description = "{baseName} made with jbang")
+class {baseName} implements Callable<Integer> {
+
+    @CommandLine.Option(names={"--token", "-t"}, description = "GitHub token", defaultValue = "$\{GITHUB_TOKEN}", required = true)
+    private String token;
+
+    @CommandLine.Option(names={"--name", "-r"}, description = "Name to search for", required = true, defaultValue = "jbang-catalog")
+    private String name;
+
+    public static void main(String... args) {
+        int exitCode = new CommandLine(new {baseName}()).execute(args);
+        System.exit(exitCode);
+    }
+
+    @Override
+    public Integer call() throws Exception {
+        GitHub gh = GitHub.connect("", token);
+
+        // search for repositories with specific name
+
+        PagedSearchIterable<GHRepository> result = gh.searchRepositories().q(name).list();
+
+        for (GHRepository ghRepository : result) {
+            Optional<String> desc = Optional.ofNullable(ghRepository.getDescription());
+            System.out.println(ghRepository.getFullName() + " - " + desc.orElse("(no description)"));
+        }
+        
+        return 0;
+    }
+}
+

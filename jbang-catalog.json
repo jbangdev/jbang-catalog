@@ -35,5 +35,12 @@
       "script-ref": "catalog2readme.java"
     }
   },
-  "templates": {}
+  "templates": {
+    "github": {
+      "description": "Simple cli to querying github",
+      "file-refs": {
+        "{basename}.java": "templates/github.java.qute"
+      }
+    }
+  }
 }
