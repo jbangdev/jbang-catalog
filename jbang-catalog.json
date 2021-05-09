@@ -15,7 +15,7 @@
     },
     "gavsearch": {
       "script-ref": "gavsearch.java",
-      "description": "Search search.maven.org for maven artifacts."
+      "description": "`gavsearch` lets you use search.maven.org from command line.\nExample: `gavsearch hibernate` will search for artifacts with hibernate in its name.\nYou can use any of the search modifiers search.maven.org supports, i.e.:\n`gavsearch c:QuarkusTest` will search for artifacts with class `QuarkusTest`"
     },
     "git": {
       "script-ref": "jgit.java",
@@ -37,10 +37,10 @@
   },
   "templates": {
     "github": {
-      "description": "Simple cli to querying github",
       "file-refs": {
         "{basename}.java": "templates/github.java.qute"
-      }
+      },
+      "description": "Simple cli to querying github"
     }
   }
 }

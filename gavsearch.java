@@ -5,6 +5,11 @@
 //DEPS org.jboss.resteasy:resteasy-jackson2-provider:4.5.6.Final
 //DEPS de.codeshelf.consoleui:consoleui:0.0.13
 
+//DESCRIPTION `gavsearch` lets you use search.maven.org from command line.
+//DESCRIPTION Example: `gavsearch hibernate` will search for artifacts with hibernate in its name.
+//DESCRIPTION You can use any of the search modifiers search.maven.org supports, i.e.:
+//DESCRIPTION `gavsearch c:QuarkusTest` will search for artifacts with class `QuarkusTest`
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.codeshelf.consoleui.prompt.ConsolePrompt;
 import de.codeshelf.consoleui.prompt.ListResult;
@@ -206,6 +211,7 @@ public class gavsearch implements Callable<Integer> {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Doc {
+        public Map<String, String> unknownFields = new HashMap<String, String>();
         public String id;
         public String g;
         public String a;
@@ -217,8 +223,17 @@ public class gavsearch implements Callable<Integer> {
         public List<String> text;
         public List<String> ec;
 
+        
+        public void setOtherField(String name, String value) {
+            unknownFields.put(name, value);
+        }
+
+        String version() {
+            return latestVersion==null?v:latestVersion;
+        }
+
         public String gradle() {
-            return g + ":" + a + ":" + latestVersion;
+            return g + ":" + a + ":" + version();
         }
 
         public String jbang() {
@@ -228,7 +243,7 @@ public class gavsearch implements Callable<Integer> {
             return "<dependency>\n" +
                     "  <groupId>" + g + "</groupId>\n" +
                     "  <artifactId>" + a + "</artifactId>\n" +
-                    "  <version>" + latestVersion + "</version>\n" +
+                    "  <version>" + version() + "</version>\n" +
                     "</dependency>";
         }
     }
