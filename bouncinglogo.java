@@ -43,7 +43,7 @@ public class bouncinglogo extends Application {
 	int yspeed = 5;
 
 	Image loadImage(String name) throws IOException {
-		return new Image(getClass().getResource("/images/" + name).openStream());
+		return new Image(getClass().getResource(name).openStream());
 	}
 
    @Override 
