@@ -33,6 +33,9 @@
     },
     "catalog2readme": {
       "script-ref": "catalog2readme.java"
+    },
+    "httpd": {
+      "script-ref": "httpd.java"
     }
   },
   "templates": {
