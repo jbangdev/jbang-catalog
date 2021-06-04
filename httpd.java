@@ -149,6 +149,7 @@ class StaticFileHandler implements HttpHandler {
         MIME_MAP.put("zip", "application/zip");
         MIME_MAP.put("md", "text/plain");
         MIME_MAP.put("txt", "text/plain");
+        MIME_MAP.put("qute", "text/plain");
         MIME_MAP.put("php", "text/plain");
         MIME_MAP.put("java", "text/plain");
         MIME_MAP.put("jsh", "text/plain");
@@ -253,7 +254,7 @@ class StaticFileHandler implements HttpHandler {
         long length;
         try {
             if (canonicalFile.isDirectory()) {
-                StringBuffer buf = new StringBuffer();
+                StringBuilder buf = new StringBuilder();
 
                 Path index = canonicalFile.toPath().resolve("index.html");
                 if (Files.exists(index)) {
@@ -282,8 +283,9 @@ class StaticFileHandler implements HttpHandler {
                             "</body>\n" +
                             "</html>");
                 }
-                fis = new ByteArrayInputStream(buf.toString().getBytes());
-                length = buf.toString().getBytes().length;
+                byte[] bytes = buf.toString().getBytes();
+                fis = new ByteArrayInputStream(bytes);
+                length = bytes.length;
 
 
             } else {
