@@ -1,0 +1,28 @@
+///usr/bin/env jbang "$0" "$@" ; exit $?
+
+//DEPS junit:junit-dep:4.11
+
+//SOURCES {scriptName}.java
+
+import org.junit.Test;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Request;
+
+import static java.lang.System.out;
+
+// JUnit4 Test class for {scriptName}
+public class {baseName} {
+
+    // Run all Unit tests with JBang with ./{baseName}.java
+    public static void main(final String... args) {
+        final Request request = Request.aClass({baseName}.class);
+        final JUnitCore runner = new JUnitCore();
+        runner.run(request);
+    }
+
+    // Define each Unit test here and run them separately in the IDE
+    @Test
+    public void test() {
+        out.println("Running test for: " + {scriptName}.class);
+    }
+}
