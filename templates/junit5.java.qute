@@ -1,0 +1,36 @@
+///usr/bin/env jbang "$0" "$@" ; exit $?
+
+//DEPS org.junit.jupiter:junit-jupiter-api:5.7.2
+//DEPS org.junit.jupiter:junit-jupiter-engine:5.7.2
+//DEPS org.junit.platform:junit-platform-launcher:1.7.2
+
+//SOURCES {scriptName}.java
+
+import org.junit.jupiter.api.Test;
+import org.junit.platform.launcher.Launcher;
+import org.junit.platform.launcher.LauncherDiscoveryRequest;
+import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
+import org.junit.platform.launcher.core.LauncherFactory;
+
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
+import static java.lang.System.out;
+
+// JUnit5 Test class for {scriptName}
+public class {baseName} {
+
+    // Run all Unit tests with JBang with ./{baseName}.java
+    public static void main(final String... args) {
+        final LauncherDiscoveryRequest request =
+                LauncherDiscoveryRequestBuilder.request()
+                        .selectors(selectClass({baseName}.class))
+                        .build();
+        final Launcher launcher = LauncherFactory.create();
+        launcher.execute(request);
+    }
+
+    // Define each Unit test here and run them separately in the IDE
+    @Test
+    public void test() {
+        out.println("Running test for: " + {scriptName}.class);
+    }
+}
