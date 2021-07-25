@@ -45,6 +45,18 @@
         "{basename}.java": "templates/github.java.qute"
       },
       "description": "Simple cli to querying github"
+    },
+    "junit4": {
+      "file-refs": {
+        "{basename}.java": "templates/junit4.java.qute"
+      },
+      "description": "Basic template for JUnit4 tests"
+    },
+    "junit5": {
+      "file-refs": {
+        "{basename}.java": "templates/junit5.java.qute"
+      },
+      "description": "Basic template for JUnit5 tests"
     }
   }
 }
