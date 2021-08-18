@@ -1,0 +1,6 @@
+before_install:
+  -  curl -Ls https://sh.jbang.dev | bash -s - app setup
+install:
+  - ~/.jbang/bin/jbang export mavenrepo --force -O target -Dgroup=$GROUP -Dartifact=$ARTIFACT -Dversion=$VERSION {baseName}.java
+  - mkdir -p ~/.m2/repository
+  - cp -rv target/* ~/.m2/repository/

@@ -46,6 +46,12 @@
       },
       "description": "Simple cli to querying github"
     },
+    "jitpack": {
+      "file-refs": {
+        "jitpack.yml": "templates/jitpack.yml.qute"
+      },
+      "description": "Initializes a bare-bone jitpack.yml to enable publishing a jbang script as a maven artifact via jitpack.\n\nExample: `jbang init -t jitpack@jbangdev myapp.java` and then commit this to github and visit jitpack.io to trigger its build."
+    },
     "junit4": {
       "file-refs": {
         "{basename}.java": "templates/junit4.java.qute"
