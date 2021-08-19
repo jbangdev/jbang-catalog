@@ -11,9 +11,11 @@ import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
+import org.junit.platform.launcher.listeners.LoggingListener;
 
-import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
 import static java.lang.System.out;
+import static java.util.logging.Level.INFO;
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
 
 // JUnit5 Test class for {scriptName}
 public class {baseName} {
@@ -25,12 +27,12 @@ public class {baseName} {
                         .selectors(selectClass({baseName}.class))
                         .build();
         final Launcher launcher = LauncherFactory.create();
-        launcher.execute(request);
+        final LoggingListener loggingListener = LoggingListener.forJavaUtilLogging(INFO);
+        launcher.execute(request, loggingListener);
     }
 
     // Define each Unit test here and run them separately in the IDE
     @Test
     public void test() {
-        out.println("Running test for: " + {scriptName}.class);
     }
 }

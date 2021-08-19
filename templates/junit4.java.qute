@@ -7,6 +7,8 @@
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Request;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
 
 import static java.lang.System.out;
 
@@ -17,12 +19,31 @@ public class {baseName} {
     public static void main(final String... args) {
         final Request request = Request.aClass({baseName}.class);
         final JUnitCore runner = new JUnitCore();
-        runner.run(request);
+        final Result result = runner.run(request);
+        out.println(summary(result));
     }
 
     // Define each Unit test here and run them separately in the IDE
     @Test
     public void test() {
-        out.println("Running test for: " + {scriptName}.class);
+    }
+
+    private static String summary(final Result result) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Results:")
+                .append('\n')
+                .append('\n');
+        if (result.getFailureCount() > 0) {
+            builder.append("Failed tests:")
+                    .append('\n');
+            for (final Failure failure : result.getFailures()) {
+                builder.append('\t')
+                        .append(failure.getDescription() + " " + failure.getMessage());
+            }
+            builder.append('\n')
+                    .append('\n');
+        }
+        builder.append(String.format("Tests run: %d, Failure: %d, Skipped: %d", result.getRunCount(), result.getFailureCount(), result.getIgnoreCount()));
+        return builder.toString();
     }
 }
