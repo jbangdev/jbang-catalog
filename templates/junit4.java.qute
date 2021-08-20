@@ -43,7 +43,12 @@ public class {baseName} {
             builder.append('\n')
                     .append('\n');
         }
-        builder.append(String.format("Tests run: %d, Failure: %d, Skipped: %d", result.getRunCount(), result.getFailureCount(), result.getIgnoreCount()));
+        final String message = String.format(
+            "Tests run: %d, Failure: %d, Skipped: %d",
+            result.getRunCount(),
+            result.getFailureCount(),
+            result.getIgnoreCount())
+        builder.append(message);
         return builder.toString();
     }
 }
