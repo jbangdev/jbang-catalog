@@ -11,10 +11,11 @@ import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
-import org.junit.platform.launcher.listeners.LoggingListener;
+import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
+import org.junit.platform.launcher.listeners.TestExecutionSummary;
+import org.junit.platform.launcher.listeners.TestExecutionSummary.Failure;
 
 import static java.lang.System.out;
-import static java.util.logging.Level.INFO;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
 
 // JUnit5 Test class for {scriptName}
@@ -27,12 +28,40 @@ public class {baseName} {
                         .selectors(selectClass({baseName}.class))
                         .build();
         final Launcher launcher = LauncherFactory.create();
-        final LoggingListener loggingListener = LoggingListener.forJavaUtilLogging(INFO);
-        launcher.execute(request, loggingListener);
+        final SummaryGeneratingListener generatingListener = new SummaryGeneratingListener();
+        launcher.execute(request, generatingListener);
+        out.println(summary(generatingListener.getSummary()));
+        // The test summary can also be printed with:
+        //generatingListener.getSummary().printTo(new PrintWriter(out));
     }
 
     // Define each Unit test here and run them separately in the IDE
     @Test
     public void test() {
+    }
+
+    private static String summary(final TestExecutionSummary summary) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Results:")
+                .append('\n')
+                .append('\n');
+        if (summary.getTestsFailedCount() > 0) {
+            builder.append("Failed tests:")
+                    .append('\n');
+            for (final Failure failure : summary.getFailures()) {
+                builder.append('\t')
+                        .append(failure.getTestIdentifier() + " " + failure.getException().getMessage());
+            }
+            builder.append('\n')
+                    .append('\n');
+        }
+
+        final String message = String.format(
+                "Tests run: %d, Failure: %d, Skipped: %d",
+                summary.getTestsStartedCount(),
+                summary.getTestsFailedCount(),
+                summary.getTestsSkippedCount());
+        builder.append(message);
+        return builder.toString();
     }
 }
