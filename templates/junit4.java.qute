@@ -47,7 +47,7 @@ public class {baseName} {
             "Tests run: %d, Failure: %d, Skipped: %d",
             result.getRunCount(),
             result.getFailureCount(),
-            result.getIgnoreCount())
+            result.getIgnoreCount());
         builder.append(message);
         return builder.toString();
     }
