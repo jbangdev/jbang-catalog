@@ -4,6 +4,11 @@
 
 import static java.lang.System.out;
 
+import java.io.InputStream;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +29,7 @@ import io.foojay.api.discoclient.pkg.Scope;
 import io.foojay.api.discoclient.pkg.SemVer;
 import io.foojay.api.discoclient.pkg.TermOfSupport;
 import io.foojay.api.discoclient.pkg.VersionNumber;
+import io.foojay.api.discoclient.util.PkgInfo;
 import io.foojay.api.discoclient.util.SemVerParsingResult;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -63,7 +69,7 @@ class getjava implements Callable<Integer> {
     private ArchiveType archive;
 
     @Option(names = {
-            "--type" }, defaultValue = "none", description = "default: ${DEFAULT-VALUE} Valid values: ${COMPLETION-CANDIDATES}")
+            "--type" }, defaultValue = "jdk", description = "default: ${DEFAULT-VALUE} Valid values: ${COMPLETION-CANDIDATES}")
     private PackageType type;
 
     @Option(names = { "--javafx" }, description = "default: ${DEFAULT-VALUE} Valid values: ${COMPLETION-CANDIDATES}")
@@ -113,18 +119,35 @@ class getjava implements Callable<Integer> {
             if(scope!=Scope.NONE) out.println("Scope: " + scope.name());
 
         } else {
-            packages.sort(Comparator.comparing(Pkg::getDistribution));
+            packages.sort(Comparator.comparing(Pkg::getDistribution).thenComparing(Pkg::getJavaVersion).thenComparing(Pkg::getOperatingSystem).thenComparing(Pkg::getArchitecture).thenComparing(Pkg::getArchiveType).thenComparing(Pkg::getArchitecture));
 
+            if(packages.size()==1) {
+                        Pkg p = packages.get(0);
+                        printInfo(p);
+                        Path path = Paths.get(p.getFileName());
+                        System.out.println("Found an exact match. Downloading to " + path);
+                        //todo probably does not handle all cases with redirects etc.
+                        String uri = disco.getPkgDirectDownloadUri(p.getEphemeralId(), p.getJavaVersion());
+                        try(InputStream is = URI.create(uri).toURL().openStream()) {
+                                Files.copy(is,path);
+                        }                        
+
+                } else {
             packages.forEach(p -> {
-                out.println(orDefault(p.getDistribution().getUiString(),
-                        orDefault(p.getDistributionName(), "<Unknown distro>")) + " " + p.getDistributionVersion() + ":"
-                        + p.getOperatingSystem().getUiString() + ":" + p.getReleaseStatus() + ":" + p.getPackageType()
-                        + ":" + p.getArchiveType() + ": " + p.getBitness() + ":" + p.getArchitecture() + ":"
-                        + p.getFileName());
+                printInfo(p);
             });
+            System.err.println(packages.size() + " different Java's found. Please narrow result to 1 to get download");
+            }
         }
         return 0;
     }
+private void printInfo(Pkg p) {
+        out.println(orDefault(p.getDistribution().getUiString(),
+                orDefault(p.getDistributionName(), "<Unknown distro>")) + " " + p.getDistributionVersion() + ":"
+                + p.getOperatingSystem().getUiString() + ":" + p.getReleaseStatus() + ":" + p.getPackageType()
+                + ":" + p.getArchiveType() + ": " + p.getBitness() + ":" + p.getArchitecture() + ":"
+                + p.getFileName());
+}
     public static void main(String... args) {
         int exitCode = new CommandLine(new getjava()).setCaseInsensitiveEnumValuesAllowed(true)
                 .registerConverter(OperatingSystem.class,

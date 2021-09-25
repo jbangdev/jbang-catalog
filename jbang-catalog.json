@@ -37,6 +37,10 @@
     "httpd": {
       "script-ref": "httpd.java",
       "description": "`httpd` runs a webserver serving out the content of a directory.\nExample: `jbang httpd@jbangdev -d _site` will serve out the `_site` folder on localhost:8000."
+    },
+    "getjava": {
+      "script-ref": "getjava.java",
+      "description":"Experimental utility to download Java distributions using api.foojay.io."
     }
   },
   "templates": {
