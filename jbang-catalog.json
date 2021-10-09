@@ -56,17 +56,11 @@
       },
       "description": "Initializes a bare-bone jitpack.yml to enable publishing a jbang script as a maven artifact via jitpack.\n\nExample: `jbang init -t jitpack@jbangdev myapp.java` and then commit this to github and visit jitpack.io to trigger its build."
     },
-    "junit4": {
+    "junit": {
       "file-refs": {
-        "{basename}.java": "templates/junit4.java.qute"
+        "{basename}Test.java": "templates/junit.java.qute"
       },
-      "description": "Basic template for JUnit4 tests"
-    },
-    "junit5": {
-      "file-refs": {
-        "{basename}.java": "templates/junit5.java.qute"
-      },
-      "description": "Basic template for JUnit5 tests"
+      "description": "Basic template for JUnit tests"
     }
   }
 }
