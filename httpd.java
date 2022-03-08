@@ -34,7 +34,7 @@ public class httpd {
             "Serves directory content over http.");
 
     static int port = 8000;
-    static String bind = null;
+    static String bind = "127.0.0.1";
     static String output = "info";
     static String directory = System.getProperty("user.dir");
 
@@ -86,8 +86,7 @@ public class httpd {
 
         server.start();
 
-        String bindlabel = bind == null ? "0.0.0.0" : bind;
-        logger.info("Serving HTTP on " + bindlabel + " port " + port + " (http://" + bindlabel + ":" + port + "/) from " + directory + " ...");
+        logger.info("Serving HTTP on " + bind + " port " + port + " (http://" + bind + ":" + port + "/) from " + directory + " ...");
     }
 
     private static Filter logging(Logger logger) {
