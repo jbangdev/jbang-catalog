@@ -40,7 +40,13 @@
     },
     "getjava": {
       "script-ref": "getjava.java",
-      "description":"Experimental utility to download Java distributions using api.foojay.io."
+      "description": "Experimental utility to download Java distributions using api.foojay.io."
+    },
+    "ec": {
+      "script-ref": "ec.jsh"
+    },
+    "faker": {
+      "script-ref": "faker.jsh"
     }
   },
   "templates": {
