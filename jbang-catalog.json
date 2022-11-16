@@ -47,6 +47,9 @@
     },
     "faker": {
       "script-ref": "faker.jsh"
+    },
+    "dalle": {
+      "script-ref": "dalle.java"
     }
   },
   "templates": {
