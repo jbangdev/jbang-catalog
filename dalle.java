@@ -22,7 +22,7 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
-@Command(name = "dalle", mixinStandardHelpOptions = true, version = "dalle 0.1",
+@Command(name = "dalle", showDefaultValues=true, mixinStandardHelpOptions = true, version = "dalle 0.1",
         description = "Generate images using DALL-E with jbang. Requires a DALL-E account (https://labs.openai.com/).")
 class dalle implements Callable<Integer> {
 
@@ -39,7 +39,7 @@ class dalle implements Callable<Integer> {
     @Option(names={"-p", "--prompt"}, description = "A text description of the desired image(s). The maximum length is 1000 characters.", defaultValue = "A Sunflower sunset")
     String prompt;
 
-    @Option(names={"-t", "--token"}, description = "API key from https://beta.openai.com/account/api-keys",defaultValue="${OPENAI_API_KEY}", required=true)
+    @Option(names={"-t", "--token"}, description = "API key from https://beta.openai.com/account/api-keys. Will honor OPENAI_API_KEY environment variable.",defaultValue="${OPENAI_API_KEY}", required=true)
     String token;
     public static void main(String... args) {
         int exitCode = new CommandLine(new dalle()).execute(args);
@@ -63,7 +63,7 @@ class dalle implements Callable<Integer> {
                 .uri(URI.create("https://api.openai.com/v1/images/generations"))
                 .setHeader("User-Agent", "JBang") // add request header
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + "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")
+                .header("Authorization", "Bearer " + token)
                 .build();
 
         out.printf("Asking Dall-e for %s x %s image(s) of: '%s'\n", n, size, prompt);
