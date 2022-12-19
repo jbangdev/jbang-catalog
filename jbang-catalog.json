@@ -50,9 +50,6 @@
     },
     "dalle": {
       "script-ref": "dalle.java"
-    },
-    "kill": {
-      "script-ref": "kill.java"
     }
   },
   "templates": {
