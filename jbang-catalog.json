@@ -50,6 +50,10 @@
     },
     "dalle": {
       "script-ref": "dalle.java"
+    },
+    "bootstrap": {
+      "script-ref": "bootstrap.java",
+      "description": "Bootstrap a jbang script to make it self-contained."
     }
   },
   "templates": {
