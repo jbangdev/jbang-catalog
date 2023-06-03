@@ -43,7 +43,7 @@ public class bootstrap {
             \\*** IMPORTANT: Any code including imports and annotations must come after this line ***/
             """;
 
-        if (lines.size() > 0 && lines.get(0).startsWith("///")) {
+        if (lines.size() > 0 && lines.get(0).startsWith("///usr/bin/env jbang \"$0\" \"$@\" ; exit $?")) {
             lines.set(0, header);
         } else {
             lines.add(0, header);
