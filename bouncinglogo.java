@@ -1,3 +1,9 @@
+///usr/bin/env echo '
+/**** BOOTSTRAP jbang ****'>/dev/null
+command -v jbang >/dev/null 2>&1 || curl -Ls https://sh.jbang.dev | bash -s app setup
+exec `$SHELL -c "which jbang"` "$0" "$@" ; exit $?
+\*** IMPORTANT: Any code including imports and annotations must come after this line ***/
+
 
 //DEPS org.openjfx:javafx-controls:11.0.2:${os.detected.jfxname}
 //DEPS org.openjfx:javafx-graphics:11.0.2:${os.detected.jfxname}

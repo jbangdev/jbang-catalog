@@ -1,3 +1,9 @@
+//usr/bin/env echo '
+/**** BOOTSTRAP jbang ****'>/dev/null
+command -v jbang >/dev/null 2>&1 || curl -Ls https://sh.jbang.dev | bash -s app setup
+exec jbang "$0" "$@" ; exit $?
+\*** IMPORTANT: Any code including imports and annotations must come after this line ***/
+
 //usr/bin/env jbang "$0" "$@" ; exit $?
 //DEPS info.picocli:picocli:4.2.0
 //DEPS de.vandermeer:asciitable:0.3.2

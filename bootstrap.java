@@ -36,10 +36,10 @@ public class bootstrap {
         }
 
         String header = """
-            //usr/bin/env echo '
+            ///usr/bin/env echo '
             /**** BOOTSTRAP jbang ****\'>/dev/null
             command -v jbang >/dev/null 2>&1 || curl -Ls https://sh.jbang.dev | bash -s app setup
-            exec jbang "$0" "$@" ; exit $?
+            exec `$SHELL -c "which jbang"` "$0" "$@" ; exit $?
             \\*** IMPORTANT: Any code including imports and annotations must come after this line ***/
             """;
 
