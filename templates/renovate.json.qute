@@ -1,0 +1,16 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": "\\.java",
+      "matchStrings": [
+        "//DEPS (?<depName>.+):(\\${.+:(?<currentValue>[^ }]+)})",
+        "//DEPS ((?<depName>.+:.+):(?<currentValue>[^$].+))(\\@\\w+)?"
+      ],
+      "datasourceTemplate": "maven"
+    }
+  ]
+}

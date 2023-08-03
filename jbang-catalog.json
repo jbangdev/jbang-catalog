@@ -69,6 +69,12 @@
       },
       "description": "Initializes a bare-bone jitpack.yml to enable publishing a jbang script as a maven artifact via jitpack.\n\nExample: `jbang init -t jitpack@jbangdev myapp.java` and then commit this to github and visit jitpack.io to trigger its build."
     },
+    "renovate": {
+      "file-refs": {
+        "renovate.json": "templates/renovate.json.qute"
+      },
+      "description": "Initializes a renovate.json to enable automatic management of any .java file //DEPS section.\n\nExample: `jbang init -t renovate@jbangdev .github/renovate.json` and then commit this to github and if you installed https://github.com/apps/renovate renovate will make issues and PR's for dependency updates."
+    },
     "junit": {
       "file-refs": {
         "{basename}Test.java": "templates/junit.java.qute"
