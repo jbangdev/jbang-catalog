@@ -1,7 +1,7 @@
 //usr/bin/env jbang "$0" "$@" ; exit $?
 //JAVA 11+
 //DEPS info.picocli:picocli:4.2.0
-//DEPS org.jboss.resteasy:resteasy-client:4.5.6.Final
+//DEPS org.jboss.resteasy:resteasy-client:4.7.9.Final
 //DEPS org.jboss.resteasy:resteasy-jackson2-provider:4.5.6.Final
 //DEPS de.codeshelf.consoleui:consoleui:0.0.13
 
