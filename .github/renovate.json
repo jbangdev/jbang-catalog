@@ -5,7 +5,7 @@
   ],
   "regexManagers": [
     {
-      "fileMatch": "*.java",
+      "fileMatch": "\\.java",
       "matchStrings": [
         "//DEPS (?<depName>.+):(?<currentValue>.+)"
       ],
