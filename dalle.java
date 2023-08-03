@@ -1,6 +1,6 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 //DEPS info.picocli:picocli:4.6.3
-//DEPS com.fasterxml.jackson.core:jackson-databind:2.12.3
+//DEPS com.fasterxml.jackson.core:jackson-databind:2.15.2
 
 import static java.lang.System.out;
 
