@@ -7,7 +7,8 @@
     {
       "fileMatch": "\\.java",
       "matchStrings": [
-        "//DEPS (?<depName>.+):(?<currentValue>.+)"
+        "//DEPS (?<depName>.+):(\\${.+:(?<currentValue>[^ }]+)})",
+        "//DEPS ((?<depName>.+:.+):(?<currentValue>[^$].+))(\\@\\w+)?"
       ],
       "datasourceTemplate": "maven"
     }
