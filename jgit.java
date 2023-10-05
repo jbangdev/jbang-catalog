@@ -1,5 +1,5 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
-//DEPS org.eclipse.jgit:org.eclipse.jgit.pgm:5.9.0.202009080501-r
+//DEPS org.eclipse.jgit:org.eclipse.jgit.pgm:6.7.0.202309050840-r
 
 import static java.lang.System.*;
 
