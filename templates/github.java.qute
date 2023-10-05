@@ -1,6 +1,6 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 //DEPS info.picocli:picocli:4.7.5
-//DEPS org.kohsuke:github-api:1.116
+//DEPS org.kohsuke:github-api:1.316
 
 import java.util.Optional;
 import java.util.concurrent.Callable;
