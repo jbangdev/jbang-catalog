@@ -4,13 +4,7 @@ on:
   push:
     branches:
     - main
-    paths:
-    - '**.java'
-    - 'jbang-catalog.json'
   pull_request:
-    paths:
-    - '**.java'
-    - 'jbang-catalog.json'
 
 jobs:
   build:
