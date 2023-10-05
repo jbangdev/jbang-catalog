@@ -5,7 +5,7 @@ exec jbang "$0" "$@" ; exit $?
 \*** IMPORTANT: Any code including imports and annotations must come after this line ***/
 
 //usr/bin/env jbang "$0" "$@" ; exit $?
-//DEPS info.picocli:picocli:4.2.0
+//DEPS info.picocli:picocli:4.7.5
 //DEPS de.vandermeer:asciitable:0.3.2
 //DEPS org.jline:jline:3.16.0
 
