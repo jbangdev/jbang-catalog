@@ -6,4 +6,5 @@ jq -r '.aliases[]["script-ref"] | select(contains(".java"))' jbang-catalog.json 
     jbang build "$file" || { echo "Error building $file"; has_error=1; }
 done
 
+echo "has_error: $has_error"
 exit $has_error
