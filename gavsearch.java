@@ -1,8 +1,8 @@
 //usr/bin/env jbang "$0" "$@" ; exit $?
 //JAVA 11+
-//DEPS info.picocli:picocli:4.2.0
-//DEPS org.jboss.resteasy:resteasy-client:4.5.6.Final
-//DEPS org.jboss.resteasy:resteasy-jackson2-provider:4.5.6.Final
+//DEPS info.picocli:picocli:4.7.5
+//DEPS org.jboss.resteasy:resteasy-client:6.2.5.Final
+//DEPS org.jboss.resteasy:resteasy-jackson2-provider:6.2.5.Final
 //DEPS de.codeshelf.consoleui:consoleui:0.0.13
 
 //DESCRIPTION `gavsearch` lets you use search.maven.org from command line.
@@ -21,8 +21,8 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
 import javax.naming.directory.SearchResult;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.Response;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
