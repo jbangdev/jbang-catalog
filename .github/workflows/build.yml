@@ -1,0 +1,22 @@
+name: build
+
+on:
+  pull_request:
+    paths:
+    - '**.java'
+    - 'jbang-catalog.json'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Install jq
+      run: sudo apt-get install jq
+
+    - name: Run JBang Builds
+      run: .github/test.sh
+
