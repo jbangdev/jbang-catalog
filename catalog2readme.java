@@ -1,7 +1,7 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 // Update the Quarkus version to what you want here or run jbang with
 // `-Dquarkus.version=<version>` to override it.
-//DEPS io.quarkus:quarkus-bom:${quarkus.version:1.13.0.Final}@pom
+//DEPS io.quarkus:quarkus-bom:${quarkus.version:1.13.7.Final}@pom
 //DEPS io.quarkus:quarkus-picocli
 //DEPS io.quarkus:quarkus-jackson
 //DEPS io.quarkus:quarkus-qute
