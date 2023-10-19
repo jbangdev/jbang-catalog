@@ -11,6 +11,14 @@
         "//DEPS ((?<depName>.+:.+):(?<currentValue>[^$].+))(\\@\\w+)?"
       ],
       "datasourceTemplate": "maven"
+    },
+    {
+      "fileMatch": ".?jbang-catalog.json",
+      "matchStrings": [
+        "\"(?<depName>.+):(\\${.+:(?<currentValue>[^ }]+)})\"",
+        "\"((?<depName>.+:.+):(?<currentValue>[^$].+))(\\@\\w+)?\""
+      ],
+      "datasourceTemplate": "maven"
     }
   ]
 }
