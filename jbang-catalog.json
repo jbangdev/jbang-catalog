@@ -54,6 +54,10 @@
     "bootstrap": {
       "script-ref": "bootstrap.java",
       "description": "Bootstrap a jbang script to make it self-contained."
+    },
+    "jmc": {
+      "script-ref": "jmc.jsh",
+      "java-agents": []
     }
   },
   "templates": {
@@ -73,7 +77,7 @@
       "file-refs": {
         "renovate.json": "templates/renovate.json.qute"
       },
-      "description": "Initializes a renovate.json to enable automatic management of any .java file //DEPS section.\n\nExample: `jbang init -t renovate@jbangdev .github/renovate.json` and then commit this to github and if you installed https://github.com/apps/renovate renovate will make issues and PR's for dependency updates."
+      "description": "Initializes a renovate.json to enable automatic management of any .java file //DEPS section.\n\nExample: `jbang init -t renovate@jbangdev .github/renovate.json` and then commit this to github and if you installed https://github.com/apps/renovate renovate will make issues and PR\u0027s for dependency updates."
     },
     "junit": {
       "file-refs": {
