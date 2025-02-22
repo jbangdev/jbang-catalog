@@ -1,6 +1,6 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 //DEPS info.picocli:picocli:4.7.5
-//DEPS io.foojay.api:discoclient:2.0.39
+//DEPS io.foojay.api:discoclient:1.0.1
 
 import static java.lang.System.out;
 
