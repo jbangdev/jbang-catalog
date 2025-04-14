@@ -1,0 +1,30 @@
+///usr/bin/env jbang "$0" "$@" ; exit $?
+//DEPS io.quarkus:quarkus-bom:$\{quarkus.version:3.20.0}@pom
+
+/// mcp-server-shared provides shared cli entrypoint for mcp server
+/// will eventually be available in quarkus-mcp.
+//DEPS io.quarkiverse.mcp.servers:mcp-server-shared:1.0.0.CR3
+
+import io.quarkiverse.mcp.server.Prompt;
+import io.quarkiverse.mcp.server.PromptArg;
+import io.quarkiverse.mcp.server.PromptMessage;
+import io.quarkiverse.mcp.server.TextContent;
+import io.quarkiverse.mcp.server.Tool;
+import io.quarkiverse.mcp.server.ToolArg;
+
+public class {baseName} {
+    
+    @Tool(description = "Say hello")
+    String hello(@ToolArg(description = "Who you want to be greeted") String who) {
+        return "Hello " + who;
+    }
+ 
+    @Prompt(description = "Make a greeting") 
+    PromptMessage make_greeting(@PromptArg(description = "Who you want to be greeted") String who) { 
+        return PromptMessage.withUserRole(new TextContent(
+            """
+            The assistants goal is to greet the user {who}
+            """
+        ));
+    }
+}

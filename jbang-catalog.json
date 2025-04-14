@@ -67,6 +67,12 @@
       },
       "description": "Simple cli to querying github"
     },
+    "qmcp": {
+      "file-refs": {
+        "{basename}.java": "templates/qmcp.java.qute"
+      },
+      "description": "Simple cli to querying github"
+    },
     "jitpack": {
       "file-refs": {
         "jitpack.yml": "templates/jitpack.yml.qute"
