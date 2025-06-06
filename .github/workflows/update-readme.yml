@@ -23,7 +23,7 @@ jobs:
         uses: jbangdev/setup-jbang@main
 
       - name: Generate README.md
-        run: jbang catalog2readme@jbangdev > README.md
+        run: jbang catalog2readme@jbangdev -l "@jbangdev" > README.md
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
