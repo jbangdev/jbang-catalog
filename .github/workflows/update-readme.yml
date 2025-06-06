@@ -1,0 +1,32 @@
+name: Update README from jbang-catalog
+
+on:
+  push:
+    paths:
+      - 'jbang-catalog.json'
+  pull_request:
+    paths:
+      - 'jbang-catalog.json'
+
+jobs:
+  generate-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup JBang
+        uses: jbangdev/setup-jbang@main
+
+      - name: Generate README.md
+        run: jbang catalog2readme@jbangdev > README.md
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'Update README.md from jbang-catalog.json'
+          author_name: 'github-actions[bot]'
+          author_email: 'github-actions[bot]@users.noreply.github.com'
