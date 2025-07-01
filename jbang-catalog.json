@@ -9,6 +9,10 @@
       "script-ref": "properties.java",
       "description": "Dump table of System properties"
     },
+    "deps": {
+      "script-ref": "deps.java",
+      "description": "Display available version updates for dependencies"
+    },
     "env": {
       "script-ref": "env.java",
       "description": "Dump table of Environment Variables"
