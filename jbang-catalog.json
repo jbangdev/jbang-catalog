@@ -11,7 +11,7 @@
     },
     "deps": {
       "script-ref": "deps.java",
-      "description": "Display available version updates for dependencies"
+      "description": "Show the latest available dependency updates"
     },
     "env": {
       "script-ref": "env.java",
