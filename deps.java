@@ -17,7 +17,7 @@ import picocli.CommandLine.Parameters;
 import java.util.concurrent.Callable;
 
 @Command(name = "deps", mixinStandardHelpOptions = true, version = "deps 0.1",
-        description = "Analyze JBang script dependencies (//DEPS)")
+        description = "Show the latest available dependency updates")
 
 public class deps implements Callable<Integer> {
 
