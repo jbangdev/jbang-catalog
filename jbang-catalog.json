@@ -11,7 +11,7 @@
     },
     "deps": {
       "script-ref": "deps.java",
-      "description": "Show the latest available dependency updates"
+      "description": "Analyze JBang script dependencies"
     },
     "env": {
       "script-ref": "env.java",
