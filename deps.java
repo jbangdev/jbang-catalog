@@ -24,8 +24,8 @@ public class deps {
                         gavList.add(dep.asText());
                     });
             String result = $(jbang_launch_cmd + " trust add " + toolboxJar).get();
-            $(jbang_launch_cmd + " run " + toolboxJar + " versions " + String.join(",", gavList)).stream()
-                    .forEach(System.out::println);
+            String command = jbang_launch_cmd + " run " + toolboxJar + " versions " + String.join(",", gavList);
+            $(command).stream().forEach(System.out::println);
         }
     }
 }
