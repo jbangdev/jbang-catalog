@@ -3,10 +3,6 @@
 //DEPS com.fasterxml.jackson.core:jackson-databind:2.19.1
 //DEPS eu.maveniverse.maven.plugins:toolbox:0.11.2
 
-// DEPS org.apache.maven:maven-plugin-api:3.9.10
-// DEPS org.apache.maven:maven-settings:3.9.10
-// eu.maveniverse.maven.toolbox.plugin.CLI.main(args);  //+ String.join(",", gavList));
-
 import static dev.jbang.jash.Jash.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
