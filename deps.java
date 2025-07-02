@@ -36,7 +36,7 @@ public class deps implements Callable<Integer> {
         }
         String toolboxJar = "https://repo.maven.apache.org/maven2/eu/maveniverse/maven/plugins/toolbox/0.11.2/toolbox-0.11.2-cli.jar ";
         String jbang_launch_cmd = System.getenv("JBANG_LAUNCH_CMD");
-        String dependencies = $(jbang_launch_cmd + " info tools --select=dependencies " + script).get();
+        String dependencies = $(jbang_launch_cmd + " info tools  --quiet --select=dependencies " + script).get();
         JsonNode deps = new ObjectMapper().readTree(dependencies);
         List<String> gavList = new LinkedList<>();
         deps.forEach(
