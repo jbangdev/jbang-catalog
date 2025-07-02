@@ -3,6 +3,10 @@
 //DEPS com.fasterxml.jackson.core:jackson-databind:2.19.1
 //DEPS eu.maveniverse.maven.plugins:toolbox:0.11.2
 
+// DEPS org.apache.maven:maven-plugin-api:3.9.10
+// DEPS org.apache.maven:maven-settings:3.9.10
+// eu.maveniverse.maven.toolbox.plugin.CLI.main(args);  //+ String.join(",", gavList));
+
 import static dev.jbang.jash.Jash.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -12,6 +16,7 @@ import java.util.List;
 
 public class deps {
     public static void main(String... args) throws Exception {
+        String toolboxJar = "https://repo.maven.apache.org/maven2/eu/maveniverse/maven/plugins/toolbox/0.11.2/toolbox-0.11.2-cli.jar ";
         if (args.length > 0) {
             String script = args[0];
             String jbang_launch_cmd = System.getenv("JBANG_LAUNCH_CMD");
@@ -22,7 +27,8 @@ public class deps {
                     dep -> {
                         gavList.add(dep.asText());
                     });
-            $("jbang toolbox@maveniverse versions " + String.join(",", gavList)).stream()
+            String result = $(jbang_launch_cmd + " trust add " + toolboxJar).get();
+            $(jbang_launch_cmd + " run " + toolboxJar + " versions " + String.join(",", gavList)).stream()
                     .forEach(System.out::println);
         }
     }
