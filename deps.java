@@ -1,6 +1,7 @@
 /// usr/bin/env jbang "$0" "$@" ; exit $?
 //DEPS dev.jbang:jash:RELEASE
 //DEPS com.fasterxml.jackson.core:jackson-databind:2.19.1
+//DEPS eu.maveniverse.maven.plugins:toolbox:0.11.2
 
 import static dev.jbang.jash.Jash.*;
 
