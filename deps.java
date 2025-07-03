@@ -9,6 +9,8 @@
 //DEPS org.apache.maven:maven-settings:3.9.10
 //DEPS eu.maveniverse.maven.mima.runtime:standalone-static:2.4.29
 
+//DEPS org.slf4j:slf4j-simple:2.0.13
+
 import static dev.jbang.jash.Jash.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -38,21 +40,27 @@ public class deps implements Callable<Integer> {
     @Override
     public Integer call() throws Exception {
         if (script.equals("")) {
+            // Return failure if no JBang script file is supplied
             return 1;
         }
-        String toolboxJar = "https://repo.maven.apache.org/maven2/eu/maveniverse/maven/plugins/toolbox/0.11.2/toolbox-0.11.2-cli.jar";
+
+        // Get dependencies
         String jbang_launch_cmd = System.getenv("JBANG_LAUNCH_CMD");
         String dependencies = $(jbang_launch_cmd + " info tools --quiet --select=dependencies " + script).get();
         JsonNode deps = new ObjectMapper().readTree(dependencies);
+
+        // Build the gavList
         List<String> gavList = new LinkedList<>();
         deps.forEach(
                 dep -> {
                     gavList.add(dep.asText());
                 });
 
+        // Check for version updates
         String[] toolbox_args = {"versions", String.join(",", gavList)};
         eu.maveniverse.maven.toolbox.plugin.CLI.main(toolbox_args);
 
+        // Return success
         return 0;
     }
 
