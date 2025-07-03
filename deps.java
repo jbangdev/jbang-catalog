@@ -3,13 +3,11 @@
 //DEPS dev.jbang:jash:0.0.3
 //DEPS com.fasterxml.jackson.core:jackson-databind:2.19.1
 //DEPS info.picocli:picocli:4.7.7
-//DEPS eu.maveniverse.maven.plugins:toolbox:0.11.2
 
-// NOTE: The eu.maveniverse.maven.plugins:toolbox dependency is not used directly.
-// We only include it here so that running deps.java on itself will let us know if
-// a newer version of toolbox is available. If a newer toolbox is available, then
-// update the  URL pointing to the toolbox jar. See String variable toolboxJar.
-// Also update //DEPS eu.maveniverse.maven.plugins:toolbox:<version>
+//DEPS eu.maveniverse.maven.plugins:toolbox:0.11.2
+//DEPS org.apache.maven:maven-plugin-api:3.9.10
+//DEPS org.apache.maven:maven-settings:3.9.10
+//DEPS eu.maveniverse.maven.mima.runtime:standalone-static:2.4.29
 
 import static dev.jbang.jash.Jash.*;
 
@@ -51,9 +49,10 @@ public class deps implements Callable<Integer> {
                 dep -> {
                     gavList.add(dep.asText());
                 });
-        String result = $(jbang_launch_cmd + " trust add " + toolboxJar).get();
-        String command = jbang_launch_cmd + " run " + toolboxJar + " versions " + String.join(",", gavList);
-        $(command).stream().forEach(System.out::println);
+
+        String[] toolbox_args = {"versions", String.join(",", gavList)};
+        eu.maveniverse.maven.toolbox.plugin.CLI.main(toolbox_args);
+
         return 0;
     }
 
