@@ -1,4 +1,4 @@
-/// usr/bin/env jbang "$0" "$@" ; exit $?
+///usr/bin/env jbang "$0" "$@" ; exit $?
 
 //DEPS dev.jbang:jash:0.0.3
 //DEPS com.fasterxml.jackson.core:jackson-databind:2.19.1
