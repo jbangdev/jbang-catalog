@@ -9,7 +9,7 @@
 //DEPS org.apache.maven:maven-settings:3.9.10
 //DEPS eu.maveniverse.maven.mima.runtime:standalone-static:2.4.29
 
-//DEPS org.slf4j:slf4j-simple:2.0.13
+//DEPS org.slf4j:slf4j-simple:2.0.17
 
 import static dev.jbang.jash.Jash.*;
 
