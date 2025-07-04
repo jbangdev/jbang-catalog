@@ -29,8 +29,8 @@ import java.util.concurrent.Callable;
 
 public class deps implements Callable<Integer> {
 
-    @Parameters(index = "0", description = "JBang script alias or filename to analyze", defaultValue = "")
-    private String script;
+    @Parameters(index = "0", description = "JBang script alias, filename or GAV to analyze", defaultValue = "")
+    private String name;
 
     public static void main(String... args) throws Exception {
         int exitCode = new CommandLine(new deps()).execute(args);
@@ -39,7 +39,7 @@ public class deps implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        if (script.equals("")) {
+        if (name.equals("")) {
             // Return failure if no JBang script file is supplied
             return 1;
         }
@@ -47,16 +47,21 @@ public class deps implements Callable<Integer> {
         // Get dependencies
         String jbang_launch_cmd = System.getenv("JBANG_LAUNCH_CMD");
         try {
-            String dependencies = $(jbang_launch_cmd + " info tools --quiet --select=dependencies " + script).get();
-            JsonNode deps = new ObjectMapper().readTree(dependencies);
-
-            // Build the gavList
             List<String> gavList = new LinkedList<>();
-            deps.forEach(
-                    dep -> {
-                        gavList.add(dep.asText());
-                    });
 
+            if (!name.contains(":")) {
+                String dependencies = $(jbang_launch_cmd + " info tools --quiet --select=dependencies " + name).get();
+                JsonNode deps = new ObjectMapper().readTree(dependencies);
+
+                // Build the gavList
+                deps.forEach(
+                        dep -> {
+                            gavList.add(dep.asText());
+                        });
+            } else {
+                // script is a GAV
+                gavList.add(name);
+            }
             // Check for version updates
             String[] toolbox_args = {"versions", String.join(",", gavList)};
             eu.maveniverse.maven.toolbox.plugin.CLI.main(toolbox_args);
