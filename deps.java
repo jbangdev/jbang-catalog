@@ -46,19 +46,24 @@ public class deps implements Callable<Integer> {
 
         // Get dependencies
         String jbang_launch_cmd = System.getenv("JBANG_LAUNCH_CMD");
-        String dependencies = $(jbang_launch_cmd + " info tools --quiet --select=dependencies " + script).get();
-        JsonNode deps = new ObjectMapper().readTree(dependencies);
+        try {
+            String dependencies = $(jbang_launch_cmd + " info tools --quiet --select=dependencies " + script).get();
+            JsonNode deps = new ObjectMapper().readTree(dependencies);
 
-        // Build the gavList
-        List<String> gavList = new LinkedList<>();
-        deps.forEach(
-                dep -> {
-                    gavList.add(dep.asText());
-                });
+            // Build the gavList
+            List<String> gavList = new LinkedList<>();
+            deps.forEach(
+                    dep -> {
+                        gavList.add(dep.asText());
+                    });
 
-        // Check for version updates
-        String[] toolbox_args = {"versions", String.join(",", gavList)};
-        eu.maveniverse.maven.toolbox.plugin.CLI.main(toolbox_args);
+            // Check for version updates
+            String[] toolbox_args = {"versions", String.join(",", gavList)};
+            eu.maveniverse.maven.toolbox.plugin.CLI.main(toolbox_args);
+        } catch (dev.jbang.jash.ProcessException e) {
+            // script file does not have any //DEPS
+            return 2;
+        }
 
         // Return success
         return 0;
