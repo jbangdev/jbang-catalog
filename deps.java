@@ -50,6 +50,7 @@ public class deps implements Callable<Integer> {
             List<String> gavList = new LinkedList<>();
 
             if (!name.contains(":")) {
+                // name is a script file or alias
                 String dependencies = $(jbang_launch_cmd + " info tools --quiet --select=dependencies " + name).get();
                 JsonNode deps = new ObjectMapper().readTree(dependencies);
 
@@ -59,14 +60,14 @@ public class deps implements Callable<Integer> {
                             gavList.add(dep.asText());
                         });
             } else {
-                // script is a GAV
+                // name is a GAV
                 gavList.add(name);
             }
             // Check for version updates
             String[] toolbox_args = {"versions", String.join(",", gavList)};
             eu.maveniverse.maven.toolbox.plugin.CLI.main(toolbox_args);
         } catch (dev.jbang.jash.ProcessException e) {
-            // script file does not have any //DEPS
+            // script file or alias do not contain any //DEPS
             return 2;
         }
 
