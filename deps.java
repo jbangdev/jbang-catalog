@@ -29,7 +29,7 @@ import java.util.concurrent.Callable;
 
 public class deps implements Callable<Integer> {
 
-    @Parameters(index = "0", description = "JBang script to analyze", defaultValue = "")
+    @Parameters(index = "0", description = "JBang script alias or filename to analyze", defaultValue = "")
     private String script;
 
     public static void main(String... args) throws Exception {
