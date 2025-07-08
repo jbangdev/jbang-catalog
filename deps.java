@@ -4,10 +4,10 @@
 //DEPS com.fasterxml.jackson.core:jackson-databind:2.19.1
 //DEPS info.picocli:picocli:4.7.7
 
-//DEPS eu.maveniverse.maven.plugins:toolbox:0.11.2
+//DEPS eu.maveniverse.maven.plugins:toolbox:0.11.4
 //DEPS org.apache.maven:maven-plugin-api:3.9.10
 //DEPS org.apache.maven:maven-settings:3.9.10
-//DEPS eu.maveniverse.maven.mima.runtime:standalone-static:2.4.29
+//DEPS eu.maveniverse.maven.mima.runtime:standalone-static:2.4.30
 
 //DEPS org.slf4j:slf4j-simple:2.0.17
 
