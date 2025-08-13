@@ -1,22 +1,17 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 
-//DEPS org.junit.jupiter:junit-jupiter-api:5.10.0
-//DEPS org.junit.jupiter:junit-jupiter-engine:5.10.0
-//DEPS org.junit.platform:junit-platform-launcher:1.10.0
+//DEPS org.junit.jupiter:junit-jupiter-engine:5.12.2
+//DEPS org.junit.platform:junit-platform-console:1.12.2
 
 //SOURCES {scriptref}
 
-import org.junit.jupiter.api.Test;
-import org.junit.platform.launcher.Launcher;
-import org.junit.platform.launcher.LauncherDiscoveryRequest;
-import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
-import org.junit.platform.launcher.core.LauncherFactory;
-import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
-import org.junit.platform.launcher.listeners.LoggingListener;
-
-import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
+
+import java.io.File;
+import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
+import org.junit.platform.console.ConsoleLauncher;
 
 // JUnit5 Test class for {baseName}
 public class {baseName}Test {
@@ -27,22 +22,15 @@ public class {baseName}Test {
             assertEquals(1,2, "You should add some testing code for {baseName} here!");
     }   
 
-    // Run all Unit tests with JBang with ./{baseName}.java
+    // Scan the system classpath for tests
+    // Include those found in /cache/jars/ which is where
+    // jbang will by default put them. Adjust as needed.
     public static void main(final String... args) {
-        final LauncherDiscoveryRequest request =
-                LauncherDiscoveryRequestBuilder.request()
-                        .selectors(selectClass({baseName}Test.class))
-                        .build();
-        final Launcher launcher = LauncherFactory.create();
-        final LoggingListener logListener = LoggingListener.forBiConsumer((t,m) -> {
-            System.out.println(m.get());
-            if(t!=null) {
-                t.printStackTrace();
-            };
-        });
-        final SummaryGeneratingListener execListener = new SummaryGeneratingListener();
-        launcher.registerTestExecutionListeners(execListener, logListener);
-        launcher.execute(request);
-        execListener.getSummary().printTo(new java.io.PrintWriter(out));
+        String jarsList = Arrays.stream(System.getProperty("java.class.path").split(File.pathSeparator))
+        .filter(path -> path.contains("/cache/jars/"))
+        .reduce((a, b) -> a + File.pathSeparator + b)
+        .orElse("");
+        
+        ConsoleLauncher.main( "execute", "--scan-class-path", "-cp", jarsList); 
     }
 }
