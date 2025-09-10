@@ -10,7 +10,7 @@
 //Q:CONFIG quarkus.log.level=WARN
 //Q:CONFIG quarkus.qute.property-not-found-strategy=throw-exception
 
-//FILES templates/index.txt=index.txt.qute
+//FILES templates/index.txt=templates/index.txt.qute
 
 import java.io.File;
 import java.io.IOException;
@@ -55,6 +55,14 @@ public class catalog2readme implements Runnable {
         try {
             Catalog catalog;
             catalog = mapper.readValue(file, Catalog.class);
+            if (location != null) {
+                if (location.endsWith("/jbang-catalog")) {
+                    location = location.substring(0, location.length() - "/jbang-catalog".length());
+                }
+                if (!location.startsWith("@")) {
+                    location = "@" + location;
+                }
+            }
             System.out.println(index.data("catalog", catalog).data("location", location).render());
         } catch (IOException e) {
             e.printStackTrace();
@@ -63,12 +71,17 @@ public class catalog2readme implements Runnable {
 
     static public class Catalog {
         public Map<String, Alias> aliases;
+        public Map<String, CTemplate> templates;
         public String baseRef;
         public String description;
     }
 
     static public class Alias {
         public String scriptRef;
+        public String description;
+    }
+
+    static public class CTemplate {
         public String description;
     }
 }
