@@ -10,6 +10,9 @@ Each alias below shows how to run it with JBang.
 For this you need to have `jbang` installed and available in your PATH.
 See the [JBang website](https://jbang.dev/download) for options on how to install JBang.
 
+- 17 [Aliases](#aliases)
+- 5 [Templates](#templates)
+
 ## Aliases
 
 
