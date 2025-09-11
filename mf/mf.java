@@ -2,7 +2,7 @@
 
 //DEPS com.fasterxml.jackson.core:jackson-databind:2.15.2
 //DEPS com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.2
-//DEPS info.picocli:picocli:4.7.5
+//DEPS info.picocli:picocli:4.7.7
 
 //DESCRIPTION # mf.java - JAR Manifest Reader CLI
 //DESCRIPTION 
