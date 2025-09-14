@@ -1,5 +1,4 @@
 {
-  "catalogs": {},
   "aliases": {
     "hello": {
       "script-ref": "hello.java",
@@ -60,13 +59,14 @@
       "description": "Bootstrap a jbang script to make it self-contained."
     },
     "jmc": {
-      "script-ref": "jmc.jsh",
-      "java-agents": []
+      "script-ref": "jmc.jsh"
     },
     "mf": {
       "script-ref": "mf/mf.java",
-      "description": "# mf.java - JAR Manifest Reader CLI\n\n`mf` is a command-line tool for extracting and displaying JAR manifest information.\n\n## Usage\n\n```sh\nmf \u003cjar-file\u003e [--json] [--yaml] [--structured|-s]\n```\n\n- **`\u003cjar-file\u003e`**: Path to the JAR file to analyze (required). Use \u0027-\u0027 for stdin.\n- **`--json`**: Output manifest attributes as JSON.\n- **`--yaml`**: Output manifest attributes as YAML.\n- **`--structured`, `-s`**: Parse known attributes (e.g., Import-Package, Export-Package) into structured data (lists/maps).\n\n## Features\n\n- Reads the `META-INF/MANIFEST.MF` from the specified JAR file.\n- By default, prints manifest attributes as manifest.mf.\n- Supports machine-readable output with `--json` or `--yaml`.\n- Structured parsing of known attributes with `--structured`.\n- Returns a nonzero exit code if the manifest is missing or the JAR cannot be read.\n\n## Examples\n\n```sh\nmf mylib.jar\nmf mylib.jar --json\nmf `jbang info jar org.junit.jupiter:junit-jupiter:5.10.0` --yaml--structured\n```",
-      "java-agents": []
+      "description": "# mf.java - JAR Manifest Reader CLI\n\n`mf` is a command-line tool for extracting and displaying JAR manifest information.\n\n## Usage\n\n```sh\nmf \u003cjar-file\u003e [--json] [--yaml] [--structured|-s]\n```\n\n- **`\u003cjar-file\u003e`**: Path to the JAR file to analyze (required). Use \u0027-\u0027 for stdin.\n- **`--json`**: Output manifest attributes as JSON.\n- **`--yaml`**: Output manifest attributes as YAML.\n- **`--structured`, `-s`**: Parse known attributes (e.g., Import-Package, Export-Package) into structured data (lists/maps).\n\n## Features\n\n- Reads the `META-INF/MANIFEST.MF` from the specified JAR file.\n- By default, prints manifest attributes as manifest.mf.\n- Supports machine-readable output with `--json` or `--yaml`.\n- Structured parsing of known attributes with `--structured`.\n- Returns a nonzero exit code if the manifest is missing or the JAR cannot be read.\n\n## Examples\n\n```sh\nmf mylib.jar\nmf mylib.jar --json\nmf `jbang info jar org.junit.jupiter:junit-jupiter:5.10.0` --yaml--structured\n```"
+    },
+    "jbang-fmt": {
+      "script-ref": "jbang-fmt@jbangdev/jbang-fmt"
     }
   },
   "templates": {
