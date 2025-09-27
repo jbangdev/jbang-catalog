@@ -1,5 +1,5 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
-//JAVA 17+ 
+//JAVA 11+ 
 //DESCRIPTION Bootstrap a jbang script to make it self-contained.
 
 import static java.lang.System.*;
@@ -35,13 +35,7 @@ public class bootstrap {
             exit(1);
         }
 
-        String header = """
-            ///usr/bin/env echo '
-            /**** BOOTSTRAP jbang ****\'>/dev/null
-            command -v jbang >/dev/null 2>&1 || curl -Ls https://sh.jbang.dev | bash -s app setup
-            exec `$SHELL -c "which jbang"` "$0" "$@" ; exit $?
-            \\*** IMPORTANT: Any code including imports and annotations must come after this line ***/
-            """;
+        String header = "///usr/bin/env bash -c \'command -v jbang >/dev/null 2>&1 || { echo \"Bootstrapping JBang...\" >&2; curl -Ls https://sh.jbang.dev | bash -s - app setup --quiet ; export PATH=\\\"$HOME/.jbang/bin:$PATH\\\"; }; exec jbang \"$0\" \"$@\"\' \"$0\" \"$@\"; exit $?";
 
         if (lines.size() > 0 && lines.get(0).startsWith("///usr/bin/env jbang \"$0\" \"$@\" ; exit $?")) {
             lines.set(0, header);
