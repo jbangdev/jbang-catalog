@@ -68,6 +68,14 @@
     "jbang-fmt": {
       "script-ref": "jbang-fmt@jbangdev/jbang-fmt",
       "description": "Format Java code (without messing up JBang directives)."
+    },
+    "jbang-jupyter": {
+      "script-ref": "https://jitpack.io/com/github/jbangdev/jbang-jupyter/main-SNAPSHOT/jbang-jupyter-main-SNAPSHOT-fatjar.jar",
+      "runtime-options": [
+        "--add-opens",
+        "jdk.jshell/jdk.jshell\u003dALL-UNNAMED"
+      ],
+      "java": "17+"
     }
   },
   "templates": {
