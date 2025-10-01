@@ -182,6 +182,22 @@ mf `jbang info jar org.junit.jupiter:junit-jupiter:5.10.0` --yaml--structured
  jbang mf@jbangdev
  ```
 
+### jbang-fmt
+
+Format Java code (without messing up JBang directives).
+
+ ```
+ jbang jbang-fmt@jbangdev
+ ```
+
+### jbang-jupyter
+
+
+
+ ```
+ jbang jbang-jupyter@jbangdev
+ ```
+
 ## Templates
 
 
