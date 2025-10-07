@@ -1,7 +1,7 @@
 //usr/bin/env jbang "$0" "$@" ; exit $?
 
-//DEPS com.fasterxml.jackson.core:jackson-databind:2.15.2
-//DEPS com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.2
+//DEPS com.fasterxml.jackson.core:jackson-databind:2.20.0
+//DEPS com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.20.0
 //DEPS info.picocli:picocli:4.7.5
 
 //DESCRIPTION # mf.java - JAR Manifest Reader CLI
