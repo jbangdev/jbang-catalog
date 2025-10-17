@@ -198,6 +198,14 @@ Format Java code (without messing up JBang directives).
  jbang jbang-jupyter@jbangdev
  ```
 
+### trylink
+
+
+
+ ```
+ jbang trylink@jbangdev
+ ```
+
 ## Templates
 
 
