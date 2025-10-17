@@ -73,9 +73,12 @@
       "script-ref": "https://github.com/jbangdev/jbang-jupyter/releases/download/early-access/jbang-jupyter-0.1.0-SNAPSHOT-fatjar.jar",
       "runtime-options": [
         "--add-opens",
-        "jdk.jshell/jdk.jshell=ALL-UNNAMED"
+        "jdk.jshell/jdk.jshell\u003dALL-UNNAMED"
       ],
       "java": "17+"
+    },
+    "trylink": {
+      "script-ref": "jupyter/trylink.java"
     }
   },
   "templates": {
