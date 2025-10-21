@@ -7,7 +7,7 @@ exec jbang "$0" "$@" ; exit $?
 //usr/bin/env jbang "$0" "$@" ; exit $?
 //DEPS info.picocli:picocli:4.7.7
 //DEPS de.vandermeer:asciitable:0.3.2
-//DEPS org.jline:jline:3.23.0
+//DEPS org.jline:jline:3.30.6
 
 import de.vandermeer.asciitable.*;
 import picocli.CommandLine;
