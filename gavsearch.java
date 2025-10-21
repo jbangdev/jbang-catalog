@@ -2,7 +2,7 @@
 //JAVA 11+
 //DEPS info.picocli:picocli:4.7.7
 //DEPS org.jboss.resteasy:resteasy-client:6.2.5.Final
-//DEPS org.jboss.resteasy:resteasy-jackson2-provider:6.2.5.Final
+//DEPS org.jboss.resteasy:resteasy-jackson2-provider:6.2.14.Final
 //DEPS de.codeshelf.consoleui:consoleui:0.0.13
 
 //DESCRIPTION `gavsearch` lets you use search.maven.org from command line.
