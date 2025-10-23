@@ -1,28 +1,13 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 
 //DEPS dev.jbang:jash:0.0.3
-// - https://mvnrepository.com/artifact/dev.jbang/jash
-
 //DEPS com.fasterxml.jackson.core:jackson-databind:2.20.0
-// - https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-
 //DEPS info.picocli:picocli:4.7.7
-// - https://mvnrepository.com/artifact/info.picocli/picocli
-
 //DEPS eu.maveniverse.maven.plugins:toolbox:0.14.1
-// - https://mvnrepository.com/artifact/eu.maveniverse.maven.plugins/toolbox
-
 //DEPS org.apache.maven:maven-plugin-api:3.9.11
-// - https://mvnrepository.com/artifact/org.apache.maven/maven-plugin-api
-
 //DEPS org.apache.maven:maven-settings:3.9.11
-// - https://mvnrepository.com/artifact/org.apache.maven/maven-settings
-
 //DEPS eu.maveniverse.maven.mima.runtime:standalone-static:2.4.35
-// - https://mvnrepository.com/artifact/eu.maveniverse.maven.mima.runtime/standalone-static
-
 //DEPS org.slf4j:slf4j-simple:2.0.17
-// - https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
 
 import static dev.jbang.jash.Jash.*;
 
