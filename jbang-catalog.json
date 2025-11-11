@@ -28,7 +28,7 @@
       "script-ref": "bouncinglogo.java"
     },
     "h2": {
-      "script-ref": "com.h2database:h2:1.4.200",
+      "script-ref": "com.h2database:h2:2.4.240",
       "arguments": [
         "-webAllowOthers",
         "-tcpAllowOthers"
