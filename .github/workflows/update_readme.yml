@@ -6,6 +6,7 @@ on:
   workflow_dispatch:      
 jobs:
   updateReadme:
+    if: github.repository == 'jbangdev/jbang-catalog'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
