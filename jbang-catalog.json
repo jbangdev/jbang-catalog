@@ -62,7 +62,7 @@
       "script-ref": "jmc.jsh"
     },
     "kite": {
-      "script-ref": "https://github.com/kitecorp/kite-cli/releases/latest/download/kite-fat.jar",
+      "script-ref": "cloud.kitelang:kite-cli-standalone:RELEASE",
       "description": "Multi-cloud Infrastructure as Code CLI. Write once, deploy to AWS, GCP, or Azure.",
       "java": "25+"
     },
