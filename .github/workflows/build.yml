@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - name: Check out code
-      uses: actions/checkout@v5
+      uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
     - name: Setup JBang
-      uses: jbangdev/setup-jbang@main
+      uses: jbangdev/setup-jbang@312c53a4221283f9c8e4aa84d8261b82f0c680fb # main
 
     - name: Install jq
       run: sudo apt-get install jq
