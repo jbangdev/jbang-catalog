@@ -1,7 +1,7 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 // Update the Quarkus version to what you want here or run jbang with
 // `-Dquarkus.version=<version>` to override it.
-//DEPS io.quarkus:quarkus-bom:${quarkus.version:3.5.0}@pom
+//DEPS io.quarkus:quarkus-bom:${quarkus.version:3.26.0}@pom
 //DEPS io.quarkus:quarkus-picocli
 //DEPS io.quarkus:quarkus-jackson
 //DEPS io.quarkus:quarkus-qute
@@ -21,7 +21,7 @@ import jakarta.inject.Inject;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 
 import io.quarkus.qute.Template;
 import picocli.CommandLine;
@@ -46,7 +46,7 @@ public class catalog2readme implements Runnable {
     public catalog2readme(ObjectMapper mapper) {
         this.mapper = mapper;
         mapper// .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,true)
-                .setPropertyNamingStrategy(PropertyNamingStrategy.KEBAB_CASE)
+                .setPropertyNamingStrategy(PropertyNamingStrategies.KEBAB_CASE)
                 .setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
     }
 
