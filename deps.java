@@ -6,7 +6,7 @@
 
 //DEPS eu.maveniverse.maven.plugins:toolbox:0.11.4
 //DEPS org.apache.maven:maven-plugin-api:3.9.11
-//DEPS org.apache.maven:maven-settings:3.9.10
+//DEPS org.apache.maven:maven-settings:3.9.11
 //DEPS eu.maveniverse.maven.mima.runtime:standalone-static:2.4.36
 
 //DEPS org.slf4j:slf4j-simple:2.0.17
