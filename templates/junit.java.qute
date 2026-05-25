@@ -1,7 +1,7 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 
-//DEPS org.junit.jupiter:junit-jupiter-engine:5.12.2
-//DEPS org.junit.platform:junit-platform-console:1.12.2
+//DEPS org.junit.jupiter:junit-jupiter-engine:5.14.1
+//DEPS org.junit.platform:junit-platform-console:1.14.1
 
 //SOURCES {scriptref}
 
