@@ -5,8 +5,8 @@ exec `$SHELL -c "which jbang"` "$0" "$@" ; exit $?
 \*** IMPORTANT: Any code including imports and annotations must come after this line ***/
 
 
-//DEPS org.openjfx:javafx-controls:17.0.2:${os.detected.jfxname}
-//DEPS org.openjfx:javafx-graphics:17.0.2:${os.detected.jfxname}
+//DEPS org.openjfx:javafx-controls:17.0.17-ea+1:${os.detected.jfxname}
+//DEPS org.openjfx:javafx-graphics:17.0.17-ea+1:${os.detected.jfxname}
 
 //JAVA 11+
 
